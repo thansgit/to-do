@@ -1,28 +1,37 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import todos from './apis';
+
 import Form from './components/Form'
 import Section from './components/Section'
 import List from './components/List'
 
 const appTitle = "To-Do App";
 
-const list = [
-  {id:1, title: "Test #1", completed: false},
-  {id:2, title: "Test #2", completed: false},
-  {id:3, title: "Test #3", completed: false},
-];
-
-
 
 function App() {
 
-  const [toDoList, setToDoList] = useState(list);
+  const [toDoList, setToDoList] = useState([]);
 
-  const addToDo = (item) => {
-    setToDoList((oldList) => [...oldList, item])
+  useEffect(() => {
+   async function fetchToDos(){
+     const { data } = await todos.get('/todos');
+     setToDoList(data);
+   }
+   fetchToDos();
+  },[])
+
+  const addToDo = async (item) => {
+    const { data } = await todos.post('/todos', item)
+    setToDoList((oldList) => [...oldList, data])
   }
 
-  const removeToDo = (id) => {
-    setToDoList((oldList)=>oldList.filter((item)=>item.id !== id));
+  const removeToDo = async (id) => {
+    await todos.delete(`/todos/${id}`);
+    setToDoList((oldList)=>oldList.filter((item)=>item._id !== id));
+  }
+
+  const updateToDo = async (id, item) => {
+    await todos.put(`/todos/${id}`, item)
   }
 
   return (
@@ -37,7 +46,11 @@ function App() {
       </Section>
 
       <Section>
-        <List removeToDoListProp={removeToDo} list={toDoList} />
+        <List
+        updateToDoListProp={updateToDo} 
+        removeToDoListProp={removeToDo} 
+        list={toDoList} 
+        />
       </Section>
 
     </div>

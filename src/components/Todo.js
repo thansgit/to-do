@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function Todo({ title, completed, removeToDoItemProp }) {
+const Todo = ({ title, completed, removeToDoItemProp, updateToDoItemProp }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [value, setValue] = useState(title);
     const [tempValue, setTempValue] = useState(title);
@@ -14,6 +14,7 @@ function Todo({ title, completed, removeToDoItemProp }) {
         const key = e.keyCode;
 
         if (key === 13) { //Enter key
+            updateToDoItemProp( { title: tempValue } );
             setValue(tempValue);
             setIsEditing(false);
         } else if (key === 27) { //ESC key
@@ -27,7 +28,11 @@ function Todo({ title, completed, removeToDoItemProp }) {
     }
 
     const handleButtonClick = () => {
-        setIsDone((oldDone) => !oldDone );
+        setIsDone((oldDone) => {
+            const newState = !oldDone;
+            updateToDoItemProp({ completed: newState });
+            return newState;
+        });
     }
 
     return (
