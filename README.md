@@ -2,18 +2,11 @@
 > A to-do app with backend
 
 ## Table of Contents
-* [General Info](#general-information)
 * [Technologies Used](#technologies-used)
 * [Features](#features)
 * [Usage](#usage)
 * [Project Status](#project-status)
 * [Room for Improvement](#room-for-improvement)
-
-## General Information
-- Provide general information about your project here.
-- What problem does it (intend to) solve?
-- What is the purpose of your project?
-- Why did you undertake it?
 
 ## Technologies Used
 - React18.0
