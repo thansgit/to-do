@@ -26,8 +26,8 @@
 - Run npm install in main folder and backend folder
 
 ## Usage
-- Run `npm start` in main folder 
-- Run `node index` in backend folder
+- Run `npm start` in main folder to start server on localhost:3000
+- Run `node index` in backend folder to start server on localhost:3030
 
 ## Project Status
 Project is: _complete_
